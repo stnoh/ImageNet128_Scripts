@@ -11,7 +11,7 @@ Based on the [code](https://github.com/PatrykChrabaszcz/Imagenet32_Scripts) for 
   python3 image_resizer_imagenet.py -i ~/datasets/ImageNet/ILSVRC2012_img_val -o ~/datasets/ImageNet/ILSVRC2012_img_val_128
   ```
 
-- Convert the images to pickles:
+- Convert the resized images to pickles:
   ```sh
   python3 image2numpy_imagenet_train.py  -i ~/datasets/ImageNet/ILSVRC2012_img_train_128/box -o ~/datasets/ImageNet128
   python3 image2numpy_imagenet_val.py  -i ~/datasets/ImageNet/ILSVRC2012_img_val_128/box -o ~/datasets/ImageNet128
