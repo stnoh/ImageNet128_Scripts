@@ -2,7 +2,6 @@
 
 ## Introduction:
 Based on the [code](https://github.com/PatrykChrabaszcz/Imagenet32_Scripts) for generating ImageNet32 and ImageNet64. This code has been optimized and you will be able to generate ImageNet128 on a machine with at least 64 GB RAM.
-http://image-net.org/download-images
 
 ## Example
 - Download and ectract the [dataset](http://www.image-net.org/challenges/LSVRC/2012/nonpub-downloads)
