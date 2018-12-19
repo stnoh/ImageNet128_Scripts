@@ -6,6 +6,10 @@ import os
 from scipy import misc
 from utils import *
 
+# Number of classes to be subsampled
+num_classes = 1000
+# Number of pickle files to be created for the training set. Preferably, each file should not be too small and can fit into your memory
+n = 10
 
 def parse_arguments():
     parser = ArgumentParser()
@@ -20,14 +24,7 @@ def process_folder(in_dir, out_dir):
     label_dict = get_label_dict()
     folders = get_ordered_folders()
     val_ground_dict = get_val_ground_dict()
-
-    # Subsampling folders could be useful when we want to create smaller dataset
-    # For example we want to use only every 10th class or first 100 classes (Below)
-
-    # Here subsample folders
-    # folders = folders[0::10]
-    # folders = folders[:100]
-
+    folders = folders[0::1000//num_classes]
     # Table contains labels that are associated with those folders
     labels_searched = []
     for folder in folders:
@@ -45,7 +42,7 @@ def process_folder(in_dir, out_dir):
         if label not in labels_searched:
             continue
         try:
-            img = misc.imread(os.path.join(in_dir, image_name))
+            img = misc.imread(os.path.join(in_dir, image_name),mode='RGB')
             r = img[:, :, 0].flatten()
             g = img[:, :, 1].flatten()
             b = img[:, :, 2].flatten()
@@ -60,19 +57,34 @@ def process_folder(in_dir, out_dir):
         labels_list.append(label)
 
     data_val = np.row_stack(images)
-
-    # Can add some kind of data splitting
-    d_val = {
-        'data': data_val,
-        'labels': labels_list
-    }
+    labels_list= np.array(labels_list)
+    y_test = []
     if not os.path.exists(out_dir):
         os.makedirs(out_dir)
-    pickle.dump(d_val, open(os.path.join(out_dir, 'val_data'), 'wb'))
+    
+    val_indices = np.arange(data_val.shape[0])
+    np.random.shuffle(val_indices)
+    curr_index = 0
+    size = data_val.shape[0] // n
+    for i in range(1,n):
+        d_val={
+        'data': data_val[val_indices[curr_index: (curr_index + size)], :],
+        'labels': labels_list[val_indices[curr_index: (curr_index + size)]].tolist()
+    	}
+        
+        pickle.dump(d_val, open(os.path.join(out_dir, 'val_data_batch_%d' % i), 'wb'))
+        curr_index += size
+        y_test.extend(d_val['labels'])
+  
+    # Create last file
+    d_val = {
+        'data': data_val[val_indices[curr_index:], :],
+        'labels': labels_list[val_indices[curr_index:]].tolist(),
+    }
+    pickle.dump(d_val, open(os.path.join(out_dir, 'val_data_batch_%d' % n), 'wb'))
+    y_test.extend(d_val['labels'])
 
-    y_test = d_val['labels']
     count = np.zeros([1000])
-
     for i in y_test:
         count[i-1] += 1
 
