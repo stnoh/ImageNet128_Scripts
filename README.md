@@ -1,7 +1,7 @@
 # Scripts for generating a CIFAR-style ImageNet128 dataset
 
-## Introduction:
-Based on the [code](https://github.com/PatrykChrabaszcz/Imagenet32_Scripts) for generating ImageNet32 and ImageNet64. This code has been optimized and you will be able to generate ImageNet128 on a machine with at least 64 GB RAM. Following the original code, the 'box' algorithm is used by default for resizing images.
+## Introduction
+Based on the [code](https://github.com/PatrykChrabaszcz/Imagenet32_Scripts) for generating ImageNet32 and ImageNet64. This code has been optimized and you will be able to generate ImageNet128 on a machine with at least 64 GB RAM. Following the original code, the 'box' algorithm is used by default for resizing images. With this code, you can also generate datasets of different image sizes or generate datasets of less than 1000 classes.
 
 ## Example
 - Download and extract the [ImageNet dataset](http://www.image-net.org/challenges/LSVRC/2012/nonpub-downloads)
