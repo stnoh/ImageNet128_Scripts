@@ -1,7 +1,7 @@
 import pickle
 
 val_names_file = 'val.txt'
-val_labels_file = 'ILSVRC2015_clsloc_validation_ground_truth.txt'
+val_labels_file = 'ILSVRC2012_validation_ground_truth.txt'
 map_file = 'map_clsloc.txt'
 
 
