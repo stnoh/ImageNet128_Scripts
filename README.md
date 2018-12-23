@@ -7,7 +7,7 @@ Based on the [code](https://github.com/PatrykChrabaszcz/Imagenet32_Scripts) for 
 - Download and extract the [ImageNet dataset](http://www.image-net.org/challenges/LSVRC/2012/nonpub-downloads)
 - Resize the images to 128x128:
   ```sh
-  python3 image_resizer_imagenet.py -i ~/datasets/ImageNet/ILSVRC2012_img_train -o ~/datasets/ImageNet/ILSVRC2012_img_train_128
+  python3 image_resizer_imagenet.py -i ~/datasets/ImageNet/ILSVRC2012_img_train -o ~/datasets/ImageNet/ILSVRC2012_img_train_128 -r
   python3 image_resizer_imagenet.py -i ~/datasets/ImageNet/ILSVRC2012_img_val -o ~/datasets/ImageNet/ILSVRC2012_img_val_128
   ```
 - Convert the resized images to pickles:
