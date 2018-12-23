@@ -24,7 +24,7 @@ def parse_arguments():
                         default='box')
 
     parser.add_argument('-r', '--recurrent', help="Process all subfolders in this folder (1 lvl deep)",
-                        action='store_true', default=1)
+                        action='store_true', default=0)
     parser.add_argument('-f', '--full', help="Use all algorithms, create subdirectory for each algorithm output",
                         action='store_true')
     parser.add_argument('-e', '--every_nth', help="Use if you don't want to take all classes, "
