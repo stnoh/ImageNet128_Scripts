@@ -3,7 +3,7 @@
 from argparse import ArgumentParser
 from utils import *
 import os
-from scipy import misc
+import imageio
 import numpy as np
 
 # Number of classes to be subsampled
@@ -37,16 +37,17 @@ def process_folder(in_dir, out_dir):
     num_images = 0
     for folder in folders:
         label = label_dict[folder]
-        print("Processing images from folder %s as label %d" % (folder, label))
+        print("Processing images from folder %s as class %d" % (folder, label))
         # Get images from this folder
         images = []
         for image_name in os.listdir(os.path.join(in_dir, folder)):
             try:
-                img = misc.imread(os.path.join(in_dir, folder, image_name),mode='RGB')
+                img = imageio.imread(os.path.join(in_dir, folder, image_name),pilmode='RGB')
                 r = img[:, :, 0].flatten()
                 g = img[:, :, 1].flatten()
                 b = img[:, :, 2].flatten()
                 num_images+=1
+                
             except:
                 print('Cant process image %s' % image_name)
                 with open("log_img2np.txt", "a") as f:
@@ -59,7 +60,8 @@ def process_folder(in_dir, out_dir):
         labels = [label] * samples_num
 
         labels_list_train.extend(labels)
-        print('Label: %d: %s has %d samples' % (label, folder, samples_num))
+        
+        print('Label %d: %s has %d samples' % (label, folder, samples_num))
 
     y = np.array(labels_list_train)
     if not os.path.exists(out_dir):
