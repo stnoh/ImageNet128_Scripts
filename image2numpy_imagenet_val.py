@@ -3,7 +3,7 @@
 from argparse import ArgumentParser
 import numpy as np
 import os
-from scipy import misc
+import imageio
 from utils import *
 
 # Number of classes to be subsampled
@@ -42,13 +42,13 @@ def process_folder(in_dir, out_dir):
         if label not in labels_searched:
             continue
         try:
-            img = misc.imread(os.path.join(in_dir, image_name),mode='RGB')
+            img = imageio.imread(os.path.join(in_dir, image_name),pilmode='RGB')
             r = img[:, :, 0].flatten()
             g = img[:, :, 1].flatten()
             b = img[:, :, 2].flatten()
 
         except:
-            print('Cant process image %s' % image_name)
+            print('Cant process image %s' % os.path.join(in_dir, image_name))
             with open("log_img2np_val.txt", "a") as f:
                 f.write("Couldn't read: %s" % os.path.join(in_dir, image_name))
             continue
