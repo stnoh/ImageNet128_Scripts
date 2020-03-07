@@ -47,7 +47,7 @@ def str2alg(str):
 # Takes in_dir, out_dir and alg as strings
 # resize images from in_dir using algorithm deduced from
 # alg string and puts them to "out_dir/alg/" folder
-def resize_img_folder(in_dir, out_dir, alg):
+def resize_img_folder(in_dir, out_dir, size, alg):
     print('Folder %s' % in_dir)
 
     alg_val = str2alg(alg)
@@ -101,11 +101,11 @@ if __name__ == '__main__':
                 if i % every_nth is 0 or repeat is True:
                     r = pool.apply_async(
                         func=resize_img_folder,
-                        args=[os.path.join(in_dir, folder), os.path.join(current_out_dir, folder), alg])
+                        args=[os.path.join(in_dir, folder), os.path.join(current_out_dir, folder), size, alg])
 
         else:
             print('For folder %s' % in_dir)
-            resize_img_folder(in_dir=in_dir, out_dir=current_out_dir, alg=alg)
+            resize_img_folder(in_dir=in_dir, out_dir=current_out_dir, size=size, alg=alg)
     pool.close()
     pool.join()
     print("Finished.")
