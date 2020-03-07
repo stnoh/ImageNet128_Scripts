@@ -68,6 +68,17 @@ def resize_img_folder(in_dir, out_dir, size, alg):
             if im.mode != "RGB":
                 im = im.convert(mode="RGB")
 
+            # center-crop before resize
+            w, h = im.size
+            h2 = h//2
+            w2 = w//2
+            if h > w:
+                im = im.crop( (w2-w2, h2-w2, w2+w2, h2+w2) )
+                pass
+            elif h < w:
+                im = im.crop( (w2-h2, h2-h2, w2+h2, h2+h2) )
+                pass
+
             im_resized = im.resize((size, size), alg_val)
             # Get rid of extension (.jpg or other)
             filename = os.path.splitext(filename)[0]
